@@ -12,12 +12,15 @@
 import headr from './components/common/headr.vue'
 import tabbar from './components/common/tabbar.vue'
 
+import shoplist from './components/common/shopList.vue'
+
 
 export default {
   name: 'app',
   components: {
     headr,
-    tabbar
+    tabbar,
+    shoplist
   }
 }
 </script>
