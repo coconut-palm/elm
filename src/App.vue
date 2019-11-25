@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <headr></headr>
+    <shoplist></shoplist>
 
     <router-view></router-view>
 
@@ -27,4 +28,8 @@ export default {
 
 <style>
 @import "./assets/css/base.css";
+
+#app {
+  height: 40px;
+}
 </style>

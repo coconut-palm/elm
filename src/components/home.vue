@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="headerstyle">
       <mt-swipe :auto="4000">
       <mt-swipe-item></mt-swipe-item>
       <mt-swipe-item></mt-swipe-item>
@@ -19,7 +19,12 @@ export default {
 </script>
 
 <style scoped>
+.headerstyle {
+ 
+}
+
 .mint-swipe {
+  top: 44px;
   height: 130px;
 }
 

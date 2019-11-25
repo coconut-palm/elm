@@ -20,7 +20,8 @@ export default {
   background-color: #3190E8;
   display: flex;
   line-height: 44px;
-  position: relative;
+  position: fixed;
+  z-index: 1;
 }
 
 .head a {

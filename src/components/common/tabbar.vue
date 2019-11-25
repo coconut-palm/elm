@@ -28,7 +28,8 @@ export default {
     border-top: 1px solid #ccc;
     bottom: 0px;
     display: flex;
-    position: absolute;
+    position: fixed;
+    background-color: #fff;
   }
 
   .tabbar-item{
