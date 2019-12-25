@@ -3,10 +3,10 @@ import vueRouter from "vue-router"
 
 vue.use(vueRouter)
 
-import home from "../components/home.vue"
-import order from "../components/order.vue"
-import search from "../components/search.vue"
-import user from "../components/user.vue"
+import home from "../pages/home/home"
+import order from "../pages/order/order"
+import search from "../pages/search/search"
+import user from "../pages/user/user"
 
 const router = new vueRouter({
   routes: [

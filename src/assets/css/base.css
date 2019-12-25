@@ -1,19 +1,12 @@
+@import "./normalize.css";
+* {
+  padding: 0;
+  margin: 0;
+}
+html,body,#app {
+  height: 100%;
+  overflow-y: scroll;
+}
 a {
   text-decoration: none;
 }
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-ol {
-  margin: 0;
-}
-
-li {
-  list-style: none;
-}
-
-@import "./normalize.css"

@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <headr></headr>
-    <shoplist></shoplist>
-
     <router-view></router-view>
 
     <tabbar></tabbar>
@@ -10,26 +7,19 @@
 </template>
 
 <script>
-import headr from './components/common/headr.vue'
-import tabbar from './components/common/tabbar.vue'
+import headerTop from "./components/headerTop/headerTop";
+import tabbar from "./components/tabbar/tabbar.vue";
 
-import shoplist from './components/common/shopList.vue'
-
+import shoplist from "./components/shopList/shopList.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    headr,
-    tabbar,
-    shoplist
+    tabbar
   }
-}
+};
 </script>
 
-<style>
+<style scoped>
 @import "./assets/css/base.css";
-
-#app {
-  height: 40px;
-}
 </style>
