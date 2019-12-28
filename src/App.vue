@@ -12,10 +12,15 @@ import tabbar from "./components/tabbar/tabbar.vue";
 
 import shoplist from "./components/shopList/shopList.vue";
 
+import { mapActions } from "vuex";
+
 export default {
   name: "app",
   components: {
     tabbar
+  },
+  async mounted() {
+    this.$store.dispatch("getAddress");
   }
 };
 </script>

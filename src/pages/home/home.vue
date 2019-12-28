@@ -1,7 +1,8 @@
 <template>
   <section class="home">
     <!-- 首页头部区域 -->
-    <headerTop>
+    <!-- 使用 :title 来给头部组件传递数据 -->
+    <headerTop :title="address.address">
       <router-link class="header_search" slot="left" to="/search">
         <i class="iconfont icon-search"></i>
       </router-link>
@@ -14,7 +15,7 @@
     <nav class="home_nav">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(pages,index) in arr" :key="index">
+          <div class="swiper-slide" v-for="(pages,index) in categorysArr" :key="index">
             <a href="javascript:" class="link_to_food" v-for="(data,index) in pages" :key="index">
               <div class="food_container">
                 <img :src="baseImageUrl+data.image_url" />
@@ -45,45 +46,54 @@ import headerTop from "../../components/headerTop/headerTop";
 import Swiper from "swiper";
 import "swiper/css/swiper.min.css";
 
+// 利用mapState语法糖去读取state对象
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
-      baseImageUrl: "https://fuss10.elemecdn.com",
-      arr: [],
-      minArr: []
+      baseImageUrl: "https://fuss10.elemecdn.com"
     };
   },
   components: {
     headerTop
   },
-  created() {
-    this.getCategorys();
-  },
-  mounted() {},
-  methods: {
-    async getCategorys() {
-      const { data: res } = await this.$http.get("v2/index_entry");
+  created() {},
+  methods: {},
+  computed: {
+    ...mapState(["address", "categorys"]),
+    /*
+    根据categorys一维数组生成一个2维数组
+    小数组中的元素个数最大是8
+    */
+    categorysArr() {
+      // 1.先从当前组件中得到所有食品分类的一维数组
+      const { categorys } = this;
+      // 2.准备一个空的二维数组--categorysArr
       const arr = [];
+      // 3.准备一个小数组--pages(最大长度为8)
       let minArr = [];
-      this.arr = arr;
-      this.minArr = minArr;
-      res.forEach(data => {
+      // 4.遍历categorys得到处理后的二维数组catagorysArr
+      categorys.forEach(data => {
+        // 如果当前小数组(pages)已经满了, 创建一个新的
         if (minArr.length === 8) {
           minArr = [];
         }
-
+        // 如果minArr是空的, 将小数组(pages)保存到大数组(categorysArr)中
         if (minArr.length === 0) {
           arr.push(minArr);
         }
-
+        // 将当前分类信息保存到小数组(pages)中
         minArr.push(data);
       });
+      return arr;
     }
   },
-  computed: {},
   watch: {
-    arr(value) {
+    categorys(value) {
+      // 在修改数据之后立即使用它，然后等待 DOM 更新。
       this.$nextTick(() => {
+        // 一旦完成界面更新, 立即执行回调
         new Swiper(".swiper-container", {
           loop: true,
           pagination: {
@@ -92,12 +102,17 @@ export default {
         });
       });
     }
+  },
+  mounted() {
+    // 忘记方法名时查看Action.js
+    this.$store.dispatch("getCategorys");
   }
 };
 </script>
 
 <style scoped>
 .home {
+  width: 100%;
   overflow: hidden;
 }
 .header_search {

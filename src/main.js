@@ -6,6 +6,8 @@ import App from './App.vue'
 // Vue.use(MintUI)
 
 import router from "./router/router.js"
+// 引入Vuex的store对象
+import store from './store'
 
 import axios from "axios"
 axios.defaults.baseURL = 'https://elm.cangdu.org/'
@@ -17,5 +19,6 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

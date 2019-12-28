@@ -2,7 +2,7 @@
   <header class="header">
     <slot name="left"></slot>
     <span class="header_title">
-      <span class="header_title_text">武汉市芜湖市</span>
+      <span class="header_title_text">{{title}}</span>
     </span>
     <slot name="right"></slot>
   </header>
@@ -35,6 +35,12 @@ export default {
 }
 .header_title_text {
   font-size: 20px;
+  color: #fff;
   display: block;
+  text-overflow: ellipsis;
+  /* 设置文本不换行 */
+  white-space: nowrap;
+  /* 标签超出部分自动隐藏 */
+  overflow: hidden;
 }
 </style>
