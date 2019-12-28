@@ -4,12 +4,14 @@ Action:通过操作mutation间接更新state的多个方法的对象
 // 注意要引入api接口函数
 import {
   reqAddress,
-  reqCategorys
+  reqCategorys,
+  reqShops
 } from '../api'
 
 import {
   RECEIVE_ADDRESS,
-  RECEIVE_CATEGORYS
+  RECEIVE_CATEGORYS,
+  RECEIVE_SHOPS
 } from './mutation-types'
 
 export default {
@@ -31,5 +33,16 @@ export default {
     // 提交一个mutation
     const categorys = result
     commit(RECEIVE_CATEGORYS, { categorys })
+  },
+  // 异步获取商家列表
+  async getShops({ commit, state }) {
+    // 对象的结构赋值
+    const { longitude, latitude } = state
+    // 发送异步ajax请求
+    const result = await reqShops(longitude, latitude)
+    // 提交一个mutation
+    console.log(result)
+    const shops = result
+    commit(RECEIVE_SHOPS, { shops })
   }
 }

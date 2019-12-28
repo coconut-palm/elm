@@ -35,12 +35,14 @@
         <i class="iconfont icon-calendar"></i>
         <span class="shop_header_title">附近商家</span>
       </div>
+      <shopList></shopList>
     </div>
   </section>
 </template>
 
 <script>
 import headerTop from "../../components/headerTop/headerTop";
+import shopList from "../../components/shopList/shopList";
 
 // 引入swiper文件
 import Swiper from "swiper";
@@ -56,7 +58,8 @@ export default {
     };
   },
   components: {
-    headerTop
+    headerTop,
+    shopList
   },
   created() {},
   methods: {},
@@ -106,6 +109,7 @@ export default {
   mounted() {
     // 忘记方法名时查看Action.js
     this.$store.dispatch("getCategorys");
+    this.$store.dispatch("getShops");
   }
 };
 </script>
