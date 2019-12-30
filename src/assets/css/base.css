@@ -17,6 +17,6 @@ a {
   clear: both; 
   visibility: hidden; 
 }
-ul li {
+ul, li {
   list-style: none;
 }

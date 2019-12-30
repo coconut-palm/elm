@@ -13,7 +13,7 @@
 
     <!-- 首页导航轮播图 -->
     <nav class="home_nav">
-      <div class="swiper-container">
+      <div class="swiper-container" v-if="categorys.length">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(pages,index) in categorysArr" :key="index">
             <a href="javascript:" class="link_to_food" v-for="(data,index) in pages" :key="index">
@@ -24,9 +24,11 @@
             </a>
           </div>
         </div>
+        <!-- swiper轮播图圆点 -->
         <div class="swiper-pagination"></div>
       </div>
-      <img src alt />
+      <!-- 轮播图背景图片 -->
+      <img src="./images/msite_back.svg" alt="back" v-else>
     </nav>
 
     <!-- 首页附近商家列表 -->

@@ -1,10 +1,10 @@
 <template>
   <div class="shop_container">
-    <ul class="shop_list">
+    <ul class="shop_list" v-if="shops.length">
       <li class="shop_li" v-for="(shop,index) in shops" :key="index">
         <a class="clearfix" href>
           <div class="shop_left">
-            <img class="shop_img" src />
+            <img class="shop_img" :src="baseImageUrl + shop.image_path" />
           </div>
           <div class="shop_right">
             <section class="shop_detail_header clearfix">
@@ -19,38 +19,60 @@
             </section>
             <section class="shop_rating_order clearfix">
               <section class="shop_rating_order_left">
-                <h1></h1>
+                <Star :score="shop.rating" :size="24"></Star>
                 <div class="rating_section">{{shop.rating}}</div>
+                <div class="order_section">月售{{shop.recent_order_num}}单</div>
               </section>
-              <div class="order_section">月售{{shop.recent_order_num}}单</div>
-            </section>
-            <section class="shop_rating_order_right">
-              <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
+              <section class="shop_rating_order_right">
+                <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
+                <span class="delivery_style delivery_right">准时达</span>
+              </section>
             </section>
             <section class="shop_distance clearfix">
               <p class="shop_delivery_msg">
                 <span>${{shop.float_minimum_order_amount}}起送</span>
-                <span class="segmentation">/</span>
+                <span class="segmentation"> / </span>
                 <span>配送费约${{shop.float_delivery_fee}}</span>
               </p>
+              <section class="distance_time">
+                <span v-if="Number(shop.distance)">
+                  {{shop.distance > 1000 ? (shop.distance/1000).toFixed(2) + 'km' : shop.distance + 'm'}}
+                  <span
+                    class="segmentation"
+                  > / </span>
+                </span>
+                <span v-else>{{shop.distance}}</span>
+                <span class="segmentation"> / </span>
+                <span class="order_time">{{shop.order_lead_time}}</span>
+              </section>
             </section>
           </div>
         </a>
+      </li>
+    </ul>
+    <!-- 循环显示6个svg图片 -->
+    <ul v-else>
+      <li v-for="item in 6" :key="item">
+        <img src="./images/shop_back.svg" alt="back">
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import Star from '../star/star';
 import { mapState } from "vuex";
 export default {
   data() {
     return {
-      baseImageUrl: "https://fuss10.elemecdn.com/"
+      baseImageUrl: "http://elm.cangdu.org/img//"
     };
   },
   created() {},
   methods: {},
+  components: {
+    Star
+  },
   computed: {
     ...mapState(["shops"])
   }
@@ -124,7 +146,6 @@ export default {
 .shop_rating_order {
   width: 100%;
   margin-top: 18px;
-  margin-bottom: 8px;
 }
 .shop_rating_order_left {
   float: left;
@@ -155,12 +176,15 @@ export default {
   border-radius: 2px;
 }
 .delivery_right {
+  margin-left: -13px;
   color: #02a774;
   border: 1px solid #02a774;
 }
 .shop_distance {
+  display: block;
   width: 100%;
   font-size: 12px;
+  margin-top: 12px;
 }
 .shop_delivery_msg {
   float: left;
@@ -170,5 +194,15 @@ export default {
 }
 .segmentation {
   color: #ccc;
+}
+.distance_time {
+  float: right;
+  transform: scale(0.9);
+}
+.distance_time span {
+  color: #999;
+}
+.distance_time .order_time {
+  color: blue;
 }
 </style>
