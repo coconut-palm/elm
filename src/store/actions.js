@@ -5,7 +5,8 @@ Action:通过操作mutation间接更新state的多个方法的对象
 import {
   reqAddress,
   reqCategorys,
-  reqShops
+  reqShops,
+  getcaptchas
 } from '../api'
 
 import {
@@ -41,8 +42,15 @@ export default {
     // 发送异步ajax请求
     const result = await reqShops(longitude, latitude)
     // 提交一个mutation
-    console.log(result)
     const shops = result
     commit(RECEIVE_SHOPS, { shops })
-  }
+  },
+
+  async getCaptchaCode(){
+    let res = await getcaptchas();
+    ress = JSON.parse(res)
+    console.log(ress.code)
+      this.captchaCodeImg = res.code;
+      console.log(captchaCodeImg)
+  },
 }

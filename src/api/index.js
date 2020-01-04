@@ -22,3 +22,9 @@ export const reqCategorys = () => ajax(BASE_URL + '/v2/index_entry')
  * 也可以两个数据分别传入ajax， 然后再放入一个对象参数内， 如下面的手机号接口
  */
 export const reqShops = ({ latitude, longitude }) => ajax(BASE_URL + '/shopping/restaurants', { latitude, longitude })
+
+// 获取图片验证码
+export const getcaptchas = () => ajax(BASE_URL + '/v1/captchas', {},'POST');
+
+console.log(getcaptchas().then(res => res.code))
+

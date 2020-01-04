@@ -12,10 +12,26 @@ import login from "../pages/login/login"
 const router = new vueRouter({
   routes: [
     { path: '/', component: home },
-    { path: '/home', component: home },
-    { path: '/order', component: order },
-    { path: '/search', component: search },
-    { path: '/user', component: user },
+    { path: '/home', component: home,
+    meta: {
+      showFooter: true
+    } 
+  },
+    { path: '/order', component: order,
+    meta: {
+      showFooter: true
+    } 
+  },
+    { path: '/search', component: search,
+    meta: {
+      showFooter: true
+    }
+  },
+    { path: '/user', component: user,
+    meta: {
+      showFooter: true
+    } 
+  },
     { path: '/login', component: login },
   ]
 })

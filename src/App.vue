@@ -2,7 +2,8 @@
   <div id="app">
     <router-view></router-view>
 
-    <tabbar></tabbar>
+    <!-- 非路由组件 -->
+    <tabbar v-show="$route.meta.showFooter"></tabbar>
   </div>
 </template>
 
