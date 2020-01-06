@@ -1,7 +1,7 @@
 <template>
   <div class="shop_container">
     <ul class="shop_list" v-if="shops.length">
-      <li class="shop_li" v-for="(shop,index) in shops" :key="index">
+      <li class="shop_li" v-for="(shop,index) in shops" :key="index" @click="$router.push('/shop')">
         <a class="clearfix" href>
           <div class="shop_left">
             <img class="shop_img" :src="baseImageUrl + shop.image_path" />
@@ -65,7 +65,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      baseImageUrl: "http://elm.cangdu.org/img//"
+      baseImageUrl: "http://elm.cangdu.org/img/"
     };
   },
   created() {},

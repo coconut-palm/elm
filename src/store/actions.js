@@ -6,13 +6,16 @@ import {
   reqAddress,
   reqCategorys,
   reqShops,
-  getcaptchas
+  getcaptchas,
+  reqUserInfo,
 } from '../api'
 
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
-  RECEIVE_SHOPS
+  RECEIVE_SHOPS,
+  RECEIVE_CAPTCHAS,
+  RECEIVE_USER_INFO,
 } from './mutation-types'
 
 export default {
@@ -46,11 +49,14 @@ export default {
     commit(RECEIVE_SHOPS, { shops })
   },
 
-  async getCaptchaCode(){
-    let res = await getcaptchas();
-    ress = JSON.parse(res)
-    console.log(ress.code)
-      this.captchaCodeImg = res.code;
-      console.log(captchaCodeImg)
+  // 异步获取图片验证码
+  async getCaptchaCode( {commit} ){
+    const captchas = await getcaptchas();
+    commit(RECEIVE_CAPTCHAS, { captchas })
+  },
+
+  // 同步记录用户信息
+  recordUser ({commit}, userInfo) {
+    commit(RECEIVE_USER_INFO, {userInfo})
   },
 }

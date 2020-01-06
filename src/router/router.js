@@ -8,10 +8,19 @@ import order from "../pages/order/order"
 import search from "../pages/search/search"
 import user from "../pages/user/user"
 import login from "../pages/login/login"
+import Shop from "../pages/shop/Shop"
+import ShopGoods from "../pages/shop/ShopGoods/ShopGoods"
+import ShopInfo from "../pages/shop/ShopInfo/ShopInfo"
+import ShopRatings from "../pages/shop/ShopRatings/ShopRatings"
 
 const router = new vueRouter({
+  mode: 'history',
   routes: [
-    { path: '/', component: home },
+    { path: '/', component: home,
+    meta: {
+      showFooter: true
+    } 
+   },
     { path: '/home', component: home,
     meta: {
       showFooter: true
@@ -33,6 +42,14 @@ const router = new vueRouter({
     } 
   },
     { path: '/login', component: login },
+    { path: '/shop', component: Shop,
+  children: [
+    {path: '/shop/goods', component: ShopGoods},
+    {path: '/shop/info', component: ShopInfo},
+    {path: '/shop/ratings', component: ShopRatings},
+    {path: '', redirect: '/shop/goods'}
+  ]
+  },
   ]
 })
 

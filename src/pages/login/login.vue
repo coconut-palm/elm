@@ -48,7 +48,7 @@
               <!-- 验证码 -->
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                <img class="get_verification" :src="captchaCodeImg" alt="captcha">
+                <img class="get_verification" :src="captchaCodeImg" alt="captcha" @click="getCaptchaCode">
               </section>
             </section>
           </div>
@@ -74,6 +74,10 @@
 // 弹窗
 import AlertTip from '../../components/AlertTip/AlertTip'
 
+// import {mapState} from 'vuex'
+import {getcaptchas} from '../../api/index'
+import {reqSendCode, reqSmsLogin, reqPwdLogin} from '../../api'
+
 export default {
   data() {
     return {
@@ -97,11 +101,19 @@ export default {
     rightPhone () {
       // 利用正则对手机号进行匹配，返回布尔值
       return /^1\d{10}$/.test(this.phone)
-    }
+    },
+    // ...mapState(["captchas"]),  
+    // getcaptchas() {
+    //   return this.$store.state.captchas.code
+    // }  
+  },
+  mounted() {
+    this.getCaptchaCode()
+    // this.$store.dispatch("getCaptchaCode")
   },
   methods: {
     // 异步获取短信验证码
-    getCode () {
+    async getCode () {
       // 如果当前没有计时
       if (!this.computeTime) {
         // 启动倒计时
@@ -114,6 +126,7 @@ export default {
           }
         }, 1000)
       }
+      // 发送ajax请求（向指定手机号发送验证码短信）
     },
     // 异步登录
     async login () {
@@ -149,6 +162,7 @@ export default {
         }
         // 发送ajax请求密码登陆
         result = await reqPwdLogin({name, pwd, captcha})
+        console.log(result)
       }
 
       // 停止计时
@@ -159,18 +173,19 @@ export default {
       }
 
       // 根据结果数据处理
-      if (result.code === 0) {
+      if (result) {
         const user = result.data
         // 将user保存到vuex的state
+        // console.log(user)
         this.$store.dispatch('recordUser', user)
         // 去个人中心界面
-        this.$router.replace('/profile')
+        this.$router.replace('/user')
       } else {
         // 显示新的图片验证码
-        this.getCaptcha()
+        this.getCaptchaCode()
         // 显示警告提示
-        const msg = result.msg
-        this.showAlert(msg)
+        const message = result.message
+        this.showAlert(message)
       }
     },
     showAlert (alertText) {
@@ -181,12 +196,16 @@ export default {
     closeTip () {
       this.alertShow = false
       this.alertText = ''
-    }
+    },
+    async getCaptchaCode(){
+      const res = await getcaptchas();
+      this.captchaCodeImg = res.code;
+    },  
+    
+    
   },
 }
 </script>
-
-
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"

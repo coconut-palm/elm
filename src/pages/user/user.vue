@@ -9,7 +9,7 @@
           </div>
           <div class="user-info">
             <p class="user-info-top">
-              {{'登录/注册'}}
+              {{userInfo || '登录/注册'}}
             </p>
             <p class="user-p">
               <span class="user-icon">
@@ -108,10 +108,15 @@
 
 <script>
 import headerTop from "../../components/headerTop/headerTop"
+import {mapState} from 'vuex'
+
 export default {
   components: {
     headerTop
-  }
+  },
+  computed: {
+    ...mapState(['userInfo']),
+  },
 }
 </script>
 

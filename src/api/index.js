@@ -26,5 +26,37 @@ export const reqShops = ({ latitude, longitude }) => ajax(BASE_URL + '/shopping/
 // 获取图片验证码
 export const getcaptchas = () => ajax(BASE_URL + '/v1/captchas', {},'POST');
 
-console.log(getcaptchas().then(res => res.code))
+/**
+ * 根据经纬度和关键字搜索商铺列表
+ */
+export const reqSearchShop = (geohash, keyword) => ajax(BASE_URL + '/v4/restaurants', {geohash, keyword})
+
+/**
+ * 账号密码登录
+ */
+export const reqPwdLogin = ({username, password, captcha_code}) => ajax(BASE_URL + '/v2/login', {username, password, captcha_code}, 'POST')
+
+/**
+ * 获取短信验证码
+ */
+export const reqSendCode = phone => ajax(BASE_URL + '/v4/mobile/verify_code/send', {
+  mobile: phone,
+	scene: 'login',
+  type: 'sms'
+}, 'POST')
+
+/**
+ * 手机号验证码登录
+ */
+export const reqSmsLogin = (mobile, code, validate_token) => ajax(BASE_URL + '/v1/login/app_mobile', {mobile, code, validate_token}, 'POST')
+
+/**
+ * 获取用户信息(根据会话)
+ */
+export const reqUserInfo = () => ajax(BASE_URL + '/v1/user')
+
+/**
+ * 请求登出
+ */
+export const reqLogout = () => ajax(BASE_URL + '/v2/signout')
 

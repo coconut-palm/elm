@@ -31,7 +31,7 @@ export default {
 <style>
 .tabbar_style {
   position: fixed;
-  z-index: 10;
+  z-index: 100;
   bottom: 0;
   background-color: #fff;
   width: 100%;
