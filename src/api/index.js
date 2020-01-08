@@ -60,3 +60,15 @@ export const reqUserInfo = () => ajax(BASE_URL + '/v1/user')
  */
 export const reqLogout = () => ajax(BASE_URL + '/v2/signout')
 
+// 商铺详情
+export const shopDetails = (shopid, latitude, longitude) => ajax(BASE_URL + '/shopping/restaurant/' + shopid, {
+	latitude,
+	longitude: longitude + '&extras[]=activities&extras[]=album&extras[]=license&extras[]=identification&extras[]=statistics'
+});
+
+/**
+ * 获取shop页面菜单列表
+ */
+export const foodMenu = restaurant_id => ajax(BASE_URL + '/shopping/v2/menu', {
+	restaurant_id 
+});

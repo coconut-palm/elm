@@ -15,13 +15,13 @@
           <router-link to="" class="description_top">
             <!-- 头部左边商家图片 -->
             <section class="description_left">
-              <img src="" >
+              <img :src="baseImageUrl + shop.image_path" >
             </section>
             <!-- 头部右边商家描述 -->
             <section class="description_right">
-              <h4 class="description_title">数媒毕设</h4>
+              <h4 class="description_title">{{shop.name}}</h4>
               <p class="description_text">商家配送 分钟送达 配送费</p>
-              <p class="description_promotion">公告</p>
+              <p class="description_promotion">公告: {{shop.promotion_info}}</p>
             </section>
             <span class="description_arrow">
               <i class="iconfont icon-right"></i>
@@ -46,8 +46,20 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
-  
+  data() {
+    return {
+      baseImageUrl: 'https://elm.cangdu.org/img/'
+    }
+  },
+  computed: {
+    ...mapState(['shop'])
+  },
+  mounted() {
+    this.$store.dispatch("getShop");
+  },
 }
 </script>
 
@@ -79,18 +91,23 @@ export default {
         display flex
         .description_left
           flex 1
-          background-color red
+          >img 
+            width 68px
+            height 68px
         .description_right
           flex 4
           margin-left 4px
           .description_title
             font-weight 400
             margin-bottom 4px
+            color #fff
           .description_text
-            font-size 14px
+            font-size 13px
             margin-bottom 4px
+            color #fff
           .description_promotion
-            font-size 14px
+            font-size 13px
+            color #fff
         .description_arrow
           position absolute
           right 6px

@@ -8,14 +8,17 @@ import {
   reqShops,
   getcaptchas,
   reqUserInfo,
+  foodMenu
 } from '../api'
 
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
+  RECEIVE_SHOP,
   RECEIVE_CAPTCHAS,
   RECEIVE_USER_INFO,
+  RECEIVE_FOODMENU
 } from './mutation-types'
 
 export default {
@@ -49,6 +52,17 @@ export default {
     commit(RECEIVE_SHOPS, { shops })
   },
 
+  async getShop({ commit, state }) {
+    // 对象的结构赋值
+    const { longitude, latitude } = state
+    // 发送异步ajax请求
+    const result = await reqShops(longitude, latitude)
+    // 提交一个mutation
+    const shop = result[0]
+    console.log(shop)
+    commit(RECEIVE_SHOP, { shop })
+  },
+
   // 异步获取图片验证码
   async getCaptchaCode( {commit} ){
     const captchas = await getcaptchas();
@@ -59,4 +73,10 @@ export default {
   recordUser ({commit}, userInfo) {
     commit(RECEIVE_USER_INFO, {userInfo})
   },
+
+  async getMenuList( {commit, state}){
+    const menuList = await foodMenu(1)
+    console.log(menuList)
+    commit(RECEIVE_FOODMENU, {menuList})
+  }
 }

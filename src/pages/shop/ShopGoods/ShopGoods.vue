@@ -5,9 +5,9 @@
         <!-- 食物左侧导航栏 -->
         <section class="menu_left">
           <ul>
-            <li class="menu_left_li">
+            <li class="menu_left_li" v-for="(item, index) in menuList" :key="item.id">
               <img src="" alt="">
-              <span>名字</span>
+              <span>{{item.name}}</span>
               <span class="category_num"></span>
             </li>
           </ul>
@@ -15,13 +15,13 @@
         <!-- 食物右侧导航栏 -->
         <section class="menu_right">
           <ul>
-            <li>
+            <li v-for="(item, index) in menuList" :key="index">
               <!-- 右侧头部 -->
               <header class="menu_detail_header">
                 <!-- 头部左侧 -->
                 <section class="menu_detail_header_left">
-                  <span class="menu_item_title">无内鬼</span>
-                  <span class="menu_item_description">与玫瑰</span>
+                  <span class="menu_item_title">{{item.name}}</span>
+                  <span class="menu_item_description">{{item.description}}</span>
                 </section>
                 <!-- 头部右侧 -->
                 <span class="menu_detail_header_right">...</span>
@@ -31,17 +31,17 @@
                 </p>
               </header>
               <!-- 食物列表 -->
-              <section class="menu_detail_list">
+              <section class="menu_detail_list" v-for="(foods,foodsIndex) in item.foods" :key="foodsIndex">
                   <router-link to="" class="menu_detail_link">
                     <!-- 食物图片 -->
                     <section class="menu_food_img">
-                      <img src="" alt="">
+                      <img :src="baseImageUrl + foods.image_path">
                     </section>
                     <!-- 食物描述 -->
                     <section class="menu_food_description">
                       <h3 class="food_description_head">
                         <!-- 食物名字 -->
-                        <span class="description_foodname">食物名字</span>
+                        <span class="description_foodname">{{foods.name}}</span>
                         <!-- 食物属性 -->
                         <ul class="attributes_ul">
                           <li>
@@ -50,11 +50,11 @@
                         </ul>
                       </h3>
                       <!-- 食物描述文本 -->
-                      <p class="food_description_content">食物描述文本</p>
+                      <p class="food_description_content">{{foods.description}}</p>
                       <!-- 食物评价 -->
                       <p class="food_description_sale_rating">
-                        <span>月售</span>
-                        <span>好评率</span>
+                        <span>月售{{foods.month_sales}}份</span>
+                        <span>好评率{{foods.satisfy_rate}}%</span>
                       </p>
                       <!-- 食物活动 -->
                       <p class="food_activity">
@@ -67,7 +67,7 @@
                     <!-- 价格显示 -->
                     <section class="food_price">
                       <span>$</span>
-                      <span>10</span>
+                      <span>{{foods.specfoods[0].price}}</span>
                       <span>起</span>
                     </section>
                   </footer>
@@ -81,8 +81,20 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
-  
+  data() {
+    return {
+      baseImageUrl: 'https://elm.cangdu.org/img/'
+    }
+  },
+  computed: {
+    ...mapState(['menuList'])
+  },
+  mounted() {
+    this.$store.dispatch("getMenuList");
+  },
 }
 </script>
 
@@ -104,7 +116,6 @@ export default {
       ul
         li
           .menu_detail_header
-            background-color #00f
             height 40px
             display flex
             .menu_detail_header_left
@@ -112,7 +123,6 @@ export default {
             .menu_detail_header_right
               width 30px
           .menu_detail_list
-            background-color #f00
             .menu_detail_link
               display flex
               .menu_food_img
