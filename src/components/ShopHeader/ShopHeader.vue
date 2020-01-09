@@ -67,13 +67,13 @@ export default {
 @import '../../common/stylus/mixins';
 
 .shop_container
-  // position absolute
+  position fixed
   right 0
   left 0
-  height 100%
+  height 112px
   overflow hidden
   .shop_detail_header 
-    position relative 
+    position relative
     .header_cover_img_con
       position absolute
       width 100%
@@ -84,7 +84,7 @@ export default {
         width 100%
         // position absolute
     .description_header
-      background-color rgba(119,103,137,.43)
+      background-color rgba(119,103,137,1)
       padding 6px 0 6px 6px
       z-index 10
       .description_top

@@ -33,12 +33,12 @@
             <section>
               <!-- 手机号 -->
               <section class="login_message">
-                <input type="text" maxlength="11" placeholder="手机/邮箱/用户名" v-model="name">
+                <input type="text" maxlength="11" placeholder="手机/邮箱/用户名" v-model="username">
               </section>
               <!-- 密码 -->
               <section class="login_verification">
-                <input type="text" maxlength="8" placeholder="密码" v-if="showPwd" v-model="pwd">
-                <input type="password" maxlength="8" placeholder="密码" v-else v-model="pwd">
+                <input type="text" maxlength="8" placeholder="密码" v-if="showPwd" v-model="password">
+                <input type="password" maxlength="8" placeholder="密码" v-else v-model="password">
                 <!-- 密码图标 -->
                 <div class="switch_button off" :class="showPwd?'on':'off'" @click="showPwd=!showPwd">
                   <div class="switch_circle" :class="{right: showPwd}"></div>
@@ -47,7 +47,7 @@
               </section>
               <!-- 验证码 -->
               <section class="login_message">
-                <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
+                <input type="text" maxlength="11" placeholder="验证码" v-model="captcha_code">
                 <img class="get_verification" :src="captchaCodeImg" alt="captcha" @click="getCaptchaCode">
               </section>
             </section>
@@ -85,10 +85,10 @@ export default {
       phone: '', //手机号
       computeTime: 0,
       showPwd: false, //是否显示密码
-      pwd: '',
-      name: '', // 用户名
+      password: '',
+      username: '', // 用户名
       code: '', // 短信验证码
-      captcha: '', // 图形验证码
+      captcha_code: '', // 图形验证码
       alertText: '', // 提示文本
       alertShow: false, // 是否显示警告框
       captchaCodeImg: null
@@ -108,7 +108,8 @@ export default {
     // }  
   },
   mounted() {
-    this.getCaptchaCode()
+    this.getCaptchaCode(),
+    console.log(document.cookie)
     // this.$store.dispatch("getCaptchaCode")
   },
   methods: {
@@ -146,22 +147,22 @@ export default {
         // 发送ajax请求短信登陆
         result = await reqSmsLogin(phone, code)
       } else { // 密码登陆
-        const {name, pwd, captcha} = this
-        if (!this.name) {
+        const {username, password, captcha_code} = this
+        if (!this.username) {
           // 用户名必须指定
           this.showAlert('用户名必须指定')
           return
-        } else if (!this.pwd) {
+        } else if (!this.password) {
           // 密码必须指定
           this.showAlert('密码必须指定')
           return
-        } else if (!this.captcha) {
+        } else if (!this.captcha_code) {
           // 验证码必须指定
           this.showAlert('验证码必须指定')
           return
         }
         // 发送ajax请求密码登陆
-        result = await reqPwdLogin({name, pwd, captcha})
+        result = await reqPwdLogin({username, password, captcha_code})
         console.log(result)
       }
 

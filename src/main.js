@@ -12,8 +12,8 @@ import store from './store'
 import axios from "axios"
 axios.defaults.baseURL = 'https://elm.cangdu.org/'
 Vue.prototype.$http = axios
-
-
+// 开启cookie
+axios.defaults.withCredentials = true
 
 Vue.config.productionTip = false
 

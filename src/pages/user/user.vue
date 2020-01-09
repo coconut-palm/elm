@@ -7,9 +7,9 @@
           <div class="profile_image">
             <i class="iconfont icon-profile"></i>
           </div>
-          <div class="user-info">
+          <div class="user-info" v-if="userInfo">
             <p class="user-info-top">
-              {{userInfo || '登录/注册'}}
+              {{userInfo.username || '登录/注册'}}
             </p>
             <p class="user-p">
               <span class="user-icon">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="shop_main">
     <ShopHeader></ShopHeader>
     <div class="tab">
       <div class="tab-item">
@@ -27,15 +27,17 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-.tab 
-  display flex
-  margin 4px 0 4px 0
-  .tab-item
+.shop_main
+  overflow hidden
+  .tab 
     display flex
-    justify-content center
-    flex 1
-    font-size 18px
-    .router-link-active 
-      border-bottom 2px solid #02a774
+    margin 116px 0 4px 0
+    .tab-item
+      display flex
+      justify-content center
+      flex 1
+      font-size 18px
+      .router-link-active 
+        border-bottom 2px solid #02a774
 
 </style>

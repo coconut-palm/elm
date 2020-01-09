@@ -82,6 +82,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import BScroll from 'better-scroll'
 
 export default {
   data() {
@@ -94,6 +95,8 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getMenuList");
+    // new BScroll('.menu_left')
+    // new BScroll('.menu_right')
   },
 }
 </script>
@@ -127,6 +130,8 @@ export default {
               display flex
               .menu_food_img
                 flex 1
+                >img 
+                  width 47px
               .menu_food_description
                 flex 4
 </style>
