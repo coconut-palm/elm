@@ -8,17 +8,16 @@ import {
   reqShops,
   getcaptchas,
   reqUserInfo,
-  foodMenu
+  reqLogout,
 } from '../api'
 
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
-  RECEIVE_SHOP,
   RECEIVE_CAPTCHAS,
   RECEIVE_USER_INFO,
-  RECEIVE_FOODMENU
+  RESET_USER_INFO,
 } from './mutation-types'
 
 export default {
@@ -52,17 +51,6 @@ export default {
     commit(RECEIVE_SHOPS, { shops })
   },
 
-  async getShop({ commit, state }) {
-    // 对象的结构赋值
-    const { longitude, latitude } = state
-    // 发送异步ajax请求
-    const result = await reqShops(longitude, latitude)
-    // 提交一个mutation
-    const shop = result[0]
-    console.log(shop)
-    commit(RECEIVE_SHOP, { shop })
-  },
-
   // 异步获取图片验证码
   async getCaptchaCode( {commit} ){
     const captchas = await getcaptchas();
@@ -74,9 +62,16 @@ export default {
     commit(RECEIVE_USER_INFO, {userInfo})
   },
 
-  async getMenuList( {commit, state}){
-    const menuList = await foodMenu(1)
-    console.log(menuList)
-    commit(RECEIVE_FOODMENU, {menuList})
-  }
+  // 异步获取用户信息
+  async getUserInfo ({commit}) {
+    const result = await reqUserInfo()
+    const userInfo = result
+    commit(RECEIVE_USER_INFO, {userInfo})
+  },
+
+  // 异步登出
+  async logout ({commit}) {
+    const result = await reqLogout()
+    if (result.status === 1) { commit(RESET_USER_INFO) }
+  },
 }

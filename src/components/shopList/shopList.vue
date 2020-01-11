@@ -65,16 +65,23 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      baseImageUrl: "http://elm.cangdu.org/img/"
+      baseImageUrl: "http://elm.cangdu.org/img/",
     };
   },
-  created() {},
-  methods: {},
+  created() {
+    
+  },
+  mounted() {
+     this.$store.dispatch("getShops");
+  },
+  methods: {
+    
+  },
   components: {
     Star
   },
   computed: {
-    ...mapState(["shops"])
+    ...mapState(['shops'])
   }
 };
 </script>

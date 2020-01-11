@@ -15,13 +15,13 @@
           <router-link to="" class="description_top">
             <!-- 头部左边商家图片 -->
             <section class="description_left">
-              <img :src="baseImageUrl + shop.image_path" >
+              <img src="" >
             </section>
             <!-- 头部右边商家描述 -->
             <section class="description_right">
-              <h4 class="description_title">{{shop.name}}</h4>
+              <h4 class="description_title">{{name}}</h4>
               <p class="description_text">商家配送 分钟送达 配送费</p>
-              <p class="description_promotion">公告: {{shop.promotion_info}}</p>
+              <p class="description_promotion">公告: {{}}</p>
             </section>
             <span class="description_arrow">
               <i class="iconfont icon-right"></i>
@@ -55,10 +55,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['shop'])
   },
   mounted() {
-    this.$store.dispatch("getShop");
   },
 }
 </script>

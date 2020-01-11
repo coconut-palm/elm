@@ -20,9 +20,13 @@ export default {
   components: {
     tabbar
   },
-  async mounted() {
+  mounted() {
     this.$store.dispatch("getAddress");
-  }
+    this.getUserInfo()
+  },
+  methods: {
+    ...mapActions(["getUserInfo"])
+  },
 };
 </script>
 

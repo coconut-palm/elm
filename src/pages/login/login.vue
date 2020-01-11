@@ -108,8 +108,7 @@ export default {
     // }  
   },
   mounted() {
-    this.getCaptchaCode(),
-    console.log(document.cookie)
+    this.getCaptchaCode()
     // this.$store.dispatch("getCaptchaCode")
   },
   methods: {
@@ -175,9 +174,8 @@ export default {
 
       // 根据结果数据处理
       if (result) {
-        const user = result.data
+        const user = result
         // 将user保存到vuex的state
-        // console.log(user)
         this.$store.dispatch('recordUser', user)
         // 去个人中心界面
         this.$router.replace('/user')

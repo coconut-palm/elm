@@ -91,12 +91,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['menuList'])
+
   },
   mounted() {
-    this.$store.dispatch("getMenuList");
-    // new BScroll('.menu_left')
-    // new BScroll('.menu_right')
   },
 }
 </script>
