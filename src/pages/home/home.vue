@@ -114,7 +114,6 @@ export default {
   mounted() {
     // 忘记方法名时查看Action.js
     this.$store.dispatch("getCategorys");
-    this.$store.dispatch("getShops");
   }
 };
 </script>

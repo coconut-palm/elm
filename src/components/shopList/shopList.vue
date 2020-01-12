@@ -1,7 +1,7 @@
 <template>
   <div class="shop_container">
     <ul class="shop_list" v-if="shops.length">
-      <li class="shop_li" v-for="(shop,index) in shops" :key="index" @click="$router.push('/shop')">
+      <router-link :to="{path: 'shop', query:{id: shop.id}}" class="shop_li" v-for="shop in shops" :key="shop.id" @click="$router.push('/shop')">
         <a class="clearfix" href>
           <div class="shop_left">
             <img class="shop_img" :src="baseImageUrl + shop.image_path" />
@@ -48,7 +48,7 @@
             </section>
           </div>
         </a>
-      </li>
+      </router-link>
     </ul>
     <!-- 循环显示6个svg图片 -->
     <ul v-else>
@@ -68,17 +68,16 @@ export default {
       baseImageUrl: "http://elm.cangdu.org/img/",
     };
   },
-  created() {
-    
+  components: {
+    Star
   },
   mounted() {
      this.$store.dispatch("getShops");
+     this.initData()
   },
   methods: {
-    
-  },
-  components: {
-    Star
+    initData() {
+    }
   },
   computed: {
     ...mapState(['shops'])
@@ -89,6 +88,7 @@ export default {
 <style scoped>
 .shop_container {
   margin-bottom: 50px;
+  height: 100%;
 }
 .shop_list .shop_li {
   border-bottom: 1px solid #f1f1f1;

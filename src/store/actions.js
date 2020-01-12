@@ -9,6 +9,7 @@ import {
   getcaptchas,
   reqUserInfo,
   reqLogout,
+  // shopDetails
 } from '../api'
 
 import {
@@ -18,6 +19,7 @@ import {
   RECEIVE_CAPTCHAS,
   RECEIVE_USER_INFO,
   RESET_USER_INFO,
+  // RECEIVE_SHOP_DETAIL_DATA
 } from './mutation-types'
 
 export default {
@@ -48,8 +50,15 @@ export default {
     const result = await reqShops(longitude, latitude)
     // 提交一个mutation
     const shops = result
+    // console.log(shops)
     commit(RECEIVE_SHOPS, { shops })
   },
+
+  // async getShopDetailData({commit, state}) {
+  //   const {shopId} = state
+  //   const shopDetailData = await shopDetails(shopId)
+  //   commit(RECEIVE_SHOP_DETAIL_DATA, {shopDetailData})
+  // },
 
   // 异步获取图片验证码
   async getCaptchaCode( {commit} ){
@@ -61,6 +70,10 @@ export default {
   recordUser ({commit}, userInfo) {
     commit(RECEIVE_USER_INFO, {userInfo})
   },
+
+  // saveShopId ({commit}, shopId) {
+  //   commit(RECEIVE_SHOP_ID, {shopId})
+  // },
 
   // 异步获取用户信息
   async getUserInfo ({commit}) {

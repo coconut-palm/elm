@@ -9,4 +9,6 @@ export default {
   shops: [], // 商家数组
   captchas: null, //图片验证码
   userInfo: {}, // 用户信息
+  // shopID: null,
+  // shopDetailData: null
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="shop_container">
+    <section class="shop_container" v-if="shopDetailData">
       <!-- 返回首页 -->
       <nav class="goback"></nav>
       <!-- 头部 -->
@@ -19,7 +19,7 @@
             </section>
             <!-- 头部右边商家描述 -->
             <section class="description_right">
-              <h4 class="description_title">{{name}}</h4>
+              <h4 class="description_title">{{shopDetailData.name}}</h4>
               <p class="description_text">商家配送 分钟送达 配送费</p>
               <p class="description_promotion">公告: {{}}</p>
             </section>
@@ -47,21 +47,37 @@
 
 <script>
 import {mapState} from 'vuex'
+import {shopDetails} from '../../api'
 
 export default {
   data() {
     return {
-      baseImageUrl: 'https://elm.cangdu.org/img/'
+      baseImageUrl: 'https://elm.cangdu.org/img/',
+      shopId: null,
+      shopDetailData: null
     }
   },
+  created() {
+      this.shopId = this.$route.query.id;
+      // this.$store.dispatch('saveShopId', shopId)
+      // this.$store.dispatch('getShopDetailData')
+      console.log(this.shopId)
+      this.initData()
+  },
   computed: {
+    // ...mapState(['shopDetailData'])
+  },
+  methods: {
+    async initData() {
+      this.shopDetailData = await shopDetails(this.shopId);
+    }
   },
   mounted() {
   },
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 @import '../../common/stylus/mixins';
 
 .shop_container
